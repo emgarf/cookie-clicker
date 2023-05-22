@@ -1,23 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import Cookie from './Components/Cookie.js';
+import Cursor from './Components/Cursor.js';
+import Grandma from './Components/Grandma.js';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [gameValues, setGameValues] = useState(
+    {
+      cookieCount: 0, 
+      cursorCount: 0, 
+      cursorPrice: 1,
+      grandmaCount: 0, 
+      grandmaPrice: 100
+    }
+  );
+  const [ready, setReady] = useState(true);
+
+  useEffect(() => {
+      if (gameValues.cursorCount > 0 && ready === true) {
+        setReady(false);
+        setGameValues(prevState => ({
+          ...prevState,
+          cookieCount: gameValues.cookieCount + gameValues.cursorCount
+        }));
+        setTimeout(() => {setReady(true)}, 1500)
+      }
+  }, [setGameValues, gameValues.cookieCount, gameValues.cursorCount, ready])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Cookie setGameValues={setGameValues} gameValues={gameValues}></Cookie>
+      <Cursor setGameValues={setGameValues} gameValues={gameValues}></Cursor>
+      <Grandma setGameValues={setGameValues} gameValues={gameValues}></Grandma>
     </div>
   );
 }
