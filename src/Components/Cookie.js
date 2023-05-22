@@ -1,17 +1,13 @@
-function Cookie({setGameValues, gameValues}) {
-  const createCookie = () => {
-    setGameValues(prevState => ({
-      ...prevState,
-      cookieCount: gameValues.cookieCount + 1
-    }))
-  }
+import React from "react"
+
+function Cookie({cookieCount, bakeCookie}) {
   return (
     <div>
-      You have {gameValues.cookieCount} cookies.
+      You have {cookieCount} cookies.
 
-      <button onClick={() => createCookie()}>Click me</button>
+      <button onClick={() => bakeCookie()}>Click me</button>
     </div>
   );
 }
 
-export default Cookie;
+export default React.memo(Cookie);
