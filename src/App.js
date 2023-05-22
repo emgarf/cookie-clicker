@@ -1,7 +1,7 @@
 import './App.css';
 import Cookie from './Components/Cookie.js';
 import Item from './Components/Item.js';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {increment, incrementByAmount, incrementCursor, incrementGrandma} from './cookieSlice'
 import {useSelector, useDispatch} from 'react-redux'
 
