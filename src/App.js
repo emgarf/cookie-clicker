@@ -1,63 +1,57 @@
 import './App.css';
 import Cookie from './Components/Cookie.js';
 import Item from './Components/Item.js';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
+import {increment, incrementByAmount, incrementCursor, incrementGrandma} from './cookieSlice'
+import {useSelector, useDispatch} from 'react-redux'
 
 function App() {
-  const [gameValues, setGameValues] = useState(
-    {
-      cookieCount: 0,
-      cursor: {
-        count: 0, 
-        price: 1,
-        cps: 1,
-      },
-      grandMa: {
-        count: 0, 
-        price: 100,
-        cps: 5,
-      },
-    }
-  );
-  const [ready, setReady] = useState(true);
+  const cookieCount = useSelector((state) => state.counter.cookie);
+  const cursorCount = useSelector((state) => state.counter.cursor);
+  const cursorPrice = useSelector((state) => state.counter.cursorPrice);
+  const grandMaCount = useSelector((state) => state.counter.grandMa);
+  const grandMaPrice = useSelector((state) => state.counter.grandMaPrice);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-      if (gameValues.cursor.count > 0 && ready === true) {
-        setReady(false);
-        setGameValues(prevState => ({
-          ...prevState,
-          cookieCount: prevState.cookieCount + prevState.cursor.count
-        }));
-        setTimeout(() => {setReady(true)}, 1500)
-      }
-  }, [gameValues.cookieCount, gameValues.cursor.count, ready])
+    if (cursorCount > 0) {
+      const interval = setInterval(() => {
+        dispatch(incrementByAmount(cursorCount ));
+        if (grandMaCount > 0) {
+          dispatch(incrementByAmount(grandMaCount * 5));
+        }
+      }, 1000);
+  
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [dispatch, cursorCount, grandMaCount])
 
-  const handleBuyItem = (type) => {
-    if (gameValues[type].price <= gameValues.cookieCount) {
-      setGameValues(prevState => ({
-        ...prevState,
-        cookieCount: prevState.cookieCount - prevState[type].price,
-        [type]: {
-          ...prevState[type],
-          count: prevState[type].count + 1,
-          price: Math.ceil(prevState[type].price * 1.3),
-        },
-      }));
+  const handleBuyCursor = () => {
+    if (cursorPrice <= cookieCount) {
+      dispatch(incrementCursor())
+    }
+  }
+
+  const handleBuyGrandma = () => {
+    if (grandMaPrice <= cookieCount) {
+      dispatch(incrementGrandma())
     }
   }
 
   const bakeCookie = () => {
-    setGameValues(prevState => ({
-      ...prevState,
-      cookieCount: prevState.cookieCount + 1
-    }))
+    dispatch(increment())
   }
 
   return (
     <div className="App">
-      <Cookie cookieCount={gameValues.cookieCount} bakeCookie={bakeCookie}></Cookie>
-      <Item count={gameValues.cursor.count} price={gameValues.cursor.price} type={'cursor'} buyItem={handleBuyItem}></Item>
+      <Cookie cookieCount={cookieCount} bakeCookie={bakeCookie}></Cookie>
+      <Item count={cursorCount} price={cursorPrice} type={'cursor'} buyItem={handleBuyCursor}></Item>
+      <Item count={grandMaCount} price={grandMaPrice} type={'grandMa'} buyItem={handleBuyGrandma}></Item>
+      {/* <Item count={gameValues.grandMa.count} price={gameValues.grandMa.price} type={'grandMa'} buyItem={handleBuyItem}></Item>
       <Item count={gameValues.grandMa.count} price={gameValues.grandMa.price} type={'grandMa'} buyItem={handleBuyItem}></Item>
+      <Item count={gameValues.grandMa.count} price={gameValues.grandMa.price} type={'grandMa'} buyItem={handleBuyItem}></Item> */}
     </div>
   );
 }

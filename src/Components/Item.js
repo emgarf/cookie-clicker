@@ -6,7 +6,7 @@ function Item({count, price, type, buyItem}) {
   return (
     <div>
       Price: {price}
-      <button onClick={() => buyItem(type)}>Buy a {type}</button>
+      <button onClick={() => buyItem()}>Buy a {type}</button>
       You have {count} {type}.
     </div>
   );
