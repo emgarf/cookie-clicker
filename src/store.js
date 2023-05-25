@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import cookieSlice from './cookieSlice';
+import cakeSlice from './cakeSlice';
 export default configureStore({
   reducer: {
-    counter: cookieSlice,
+    counter: cakeSlice,
   },
 })

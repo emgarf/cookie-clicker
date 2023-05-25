@@ -1,25 +1,26 @@
-import './App.css';
-import Cookie from './Components/Cookie.js';
+import Cake from './Components/Cake.js';
 import Item from './Components/Item.js';
 import {useEffect} from 'react';
-import {increment, incrementByAmount, incrementCursor, incrementGrandma} from './cookieSlice'
+import {incrementByAmount, incrementCursor, incrementGrandma, incrementBakery} from './cakeSlice'
 import {useSelector, useDispatch} from 'react-redux'
+import styles from './styles/app.module.css'; 
 
 function App() {
-  const cookieCount = useSelector((state) => state.counter.cookie);
   const cursorCount = useSelector((state) => state.counter.cursor);
   const cursorPrice = useSelector((state) => state.counter.cursorPrice);
   const grandMaCount = useSelector((state) => state.counter.grandMa);
   const grandMaPrice = useSelector((state) => state.counter.grandMaPrice);
+  const bakeryCount = useSelector((state) => state.counter.bakery);
+  const bakeryPrice = useSelector((state) => state.counter.bakeryPrice);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // used to increment the number of cakes each seconds
     if (cursorCount > 0) {
       const interval = setInterval(() => {
         dispatch(incrementByAmount(cursorCount ));
-        if (grandMaCount > 0) {
-          dispatch(incrementByAmount(grandMaCount * 5));
-        }
+        grandMaCount && dispatch(incrementByAmount(grandMaCount * 5));
+        bakeryCount && dispatch(incrementByAmount(bakeryCount * 30));
       }, 1000);
   
       return () => {
@@ -28,30 +29,29 @@ function App() {
     }
   }, [dispatch, cursorCount, grandMaCount])
 
-  const handleBuyCursor = () => {
-    if (cursorPrice <= cookieCount) {
-      dispatch(incrementCursor())
-    }
-  }
-
-  const handleBuyGrandma = () => {
-    if (grandMaPrice <= cookieCount) {
-      dispatch(incrementGrandma())
-    }
-  }
-
-  const bakeCookie = () => {
-    dispatch(increment())
-  }
 
   return (
-    <div className="App">
-      <Cookie cookieCount={cookieCount} bakeCookie={bakeCookie}></Cookie>
-      <Item count={cursorCount} price={cursorPrice} type={'cursor'} buyItem={handleBuyCursor}></Item>
-      <Item count={grandMaCount} price={grandMaPrice} type={'grandMa'} buyItem={handleBuyGrandma}></Item>
-      {/* <Item count={gameValues.grandMa.count} price={gameValues.grandMa.price} type={'grandMa'} buyItem={handleBuyItem}></Item>
-      <Item count={gameValues.grandMa.count} price={gameValues.grandMa.price} type={'grandMa'} buyItem={handleBuyItem}></Item>
-      <Item count={gameValues.grandMa.count} price={gameValues.grandMa.price} type={'grandMa'} buyItem={handleBuyItem}></Item> */}
+    <div className={styles.app}>
+      <div className={styles.cake}>
+        <Cake></Cake>
+      </div>
+      <div className={styles.items}>
+        <Item count={cursorCount} 
+              price={cursorPrice} 
+              type={'cursor'} 
+              increment={incrementCursor()}>
+        </Item>
+        <Item count={grandMaCount} 
+              price={grandMaPrice} 
+              type={'grandMa'} 
+              increment={incrementGrandma()}>
+        </Item>
+        <Item count={bakeryCount} 
+              price={bakeryPrice} 
+              type={'bakery'} 
+              increment={incrementBakery()}>
+        </Item>
+      </div>
     </div>
   );
 }
