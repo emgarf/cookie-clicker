@@ -10,8 +10,8 @@ function Cake() {
 
   const askiiMovingParts = [`|####|>o<|###|`, `|####|u_u|###|`, `|####|x_x|###|`, `|####|v_v|###|`, `|####|-_-|###|`, `|####|T_T|###|`, `|####|U_U|###|`, `|####|V_V|###|`]
 
-  const askii1 = `ㅤ(^)(^)(^)(^)`;
-  const askii2 = `ㅤ_i__i__i__i_`;
+  const askii1 = `(^)(^)(^)(^)`;
+  const askii2 = `_i__i__i__i_`;
   const askii3 = `(____________)`;
   const askii5 = `(____________)`;
 
