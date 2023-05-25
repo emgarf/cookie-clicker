@@ -27,7 +27,7 @@ function App() {
         clearInterval(interval);
       };
     }
-  }, [dispatch, cursorCount, grandMaCount])
+  }, [dispatch, cursorCount, grandMaCount, bakeryCount])
 
 
   return (

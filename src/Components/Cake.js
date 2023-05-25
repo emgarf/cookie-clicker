@@ -22,9 +22,9 @@ function Cake() {
   }
 
   return (
-    <div>
-      You have {cakeCount} cakes.
-
+    <div className={styles.globalCake}>
+      You have {cakeCount} cakes. <br/>
+      click on the cake below
       <div onClick={() => bakeCake()} className={styles.cake}>
         <div> {askii1} </div>
         <div> {askii2} </div>
