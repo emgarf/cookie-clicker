@@ -1,8 +1,8 @@
 import Item from './Item.js';
-import {incrementItem} from '../cakeSlice'
+import {incrementItem} from '../cakeSlice.js'
 import {useSelector} from 'react-redux'
 import styles from '../styles/itemStore.module.css'; 
-import {typeList} from '../constants/constant'
+import {typeList} from '../constants/constant.js'
 
 function ItemStore() {
   const items = useSelector((state) => state.counter.items);

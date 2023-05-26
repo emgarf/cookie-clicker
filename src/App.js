@@ -1,5 +1,5 @@
-import Cake from './components/Cake.js';
-import ItemStore from './components/ItemStore.js';
+import Cake from './component/Cake.js';
+import ItemStore from './component/ItemStore.js';
 import {useEffect} from 'react';
 import {incrementByAmount} from './cakeSlice'
 import {useSelector, useDispatch} from 'react-redux'
