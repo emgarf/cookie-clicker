@@ -1,37 +1,17 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit';
+import initialState from './constants/constant';
 
 export const cakeSlice = createSlice({
   name: 'cake',
-  initialState: {
-    cake: 0,
-    cursor: 0,
-    cursorPrice: 15,
-    grandMa: 0,
-    grandMaPrice: 100,
-    bakery: 0,
-    bakeryPrice: 1500,
-  },
+  initialState: initialState,
   reducers: {
     increment: (state) => {
-      state.cake += 1;
+      state.cake += state.cakePerClick;
     },
-    decrementByAmount: (state, action) => {
-      state.cake -= action.payload;
-    },
-    incrementCursor: (state) => {
-      state.cursor += 1;
-      state.cake -= state.cursorPrice;
-      state.cursorPrice = Math.ceil(state.cursorPrice * 1.4);
-    },
-    incrementGrandma: (state) => {
-      state.grandMa += 1;
-      state.cake -= state.grandMaPrice;
-      state.grandMaPrice = Math.ceil(state.grandMaPrice * 1.7);
-    },
-    incrementBakery: (state) => {
-      state.bakery += 1;
-      state.cake -= state.bakeryPrice;
-      state.bakeryPrice = Math.ceil(state.bakeryPrice * 1.7);
+    incrementItem: (state, action) => {
+      state.items[action.payload].count += 1;
+      state.cake -= state.items[action.payload].price;
+      state.items[action.payload].price = Math.ceil(state.items[action.payload].initialPrice * Math.pow(1.3, state.items[action.payload].count));
     },
     incrementByAmount: (state, action) => {
       state.cake += action.payload;
@@ -40,6 +20,6 @@ export const cakeSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {increment, incrementCursor, incrementByAmount, decrementByAmount, incrementGrandma, incrementBakery} = cakeSlice.actions;
+export const {increment, incrementItem, incrementByAmount} = cakeSlice.actions;
 
 export default cakeSlice.reducer;

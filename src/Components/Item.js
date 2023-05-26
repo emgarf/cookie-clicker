@@ -1,5 +1,6 @@
 import React from "react"
 import {useSelector, useDispatch} from 'react-redux'
+import styles from '../styles/item.module.css'; 
 
 function Item({count, price, type, increment}) {
   const cakeCount = useSelector((state) => state.counter.cake);
@@ -12,10 +13,12 @@ function Item({count, price, type, increment}) {
   }
 
   return (
-    <div>
-      Price: {price}
-      <button onClick={() => handleBuyItem()}>Buy a {type}</button>
-      You have {count} {type}.
+    <div className={styles.item} onClick={() => handleBuyItem()}>
+      <div>
+        <p className={styles.type}>{type}</p>
+        <p className={styles.price}>Price: {price}</p>
+      </div>
+      <p className={styles.count}>Amount: {count}</p>
     </div>
   );
 }
