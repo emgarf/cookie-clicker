@@ -3,7 +3,7 @@ import initialState from './constants/constant';
 
 export const cakeSlice = createSlice({
   name: 'cake',
-  initialState: initialState,
+  initialState: localStorage.getItem("gameState") ? JSON.parse(localStorage.getItem("gameState")) : initialState,
   reducers: {
     increment: (state) => {
       state.cake += state.cakePerClick;
