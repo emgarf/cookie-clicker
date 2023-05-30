@@ -3,12 +3,32 @@
   margin-top: 50px;
   border-bottom: 1px solid black;
   border-top: 1px solid black;
+  height: 100%;
+  overflow-y: scroll;
 }
 
-.items > p {
+.store {
+  text-align: center;
   margin: 10px 0;
+}
+
+.store, .products > p, .upgrades > p {
   font-size: 20px;
   font-weight: bold;
+}
+
+.products > p, .upgrades > p {
+  margin: 0 0 10px 0;
+}
+
+.upgrades > p {
+  margin-top: 20px;
+}
+
+.products {
+  padding-top: 10px;
+  border-top: 1px solid black;
+  margin-bottom: 10px;
 }
 
 @media screen and (min-width: 680px) {

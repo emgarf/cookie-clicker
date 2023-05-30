@@ -22,7 +22,7 @@ function Cake() {
 
   return (
     <div className={styles.globalCake}>
-      You have {cakeCount} cakes. <br/>
+      You have <span>{cakeCount}</span> cakes. <br/>
       click on the cake below<br/>
       | <br/>
       | <br/>

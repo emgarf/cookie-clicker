@@ -22,6 +22,11 @@
   text-align: center;
 }
 
+.globalCake span {
+  font-size: 20px;
+  font-weight: bold;
+}
+
 @media screen and (min-width: 680px) {
   .cake:hover {
     animation: none;
@@ -33,7 +38,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.03);
   }
   100% {
     transform: scale(1);
